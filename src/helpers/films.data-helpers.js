@@ -57,3 +57,10 @@ export function sortGridRows(gridRows, columnKey, isColumnNumeric, isColumnDate,
         return comparisonValue;
     });
 }
+
+export function fetchFilms() {
+    return fetch('https://swapi.dev/api/films/').then(res => {
+        const promise = res.json();
+        return promise;
+    });
+}

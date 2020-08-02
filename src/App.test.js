@@ -1,9 +1,13 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, cleanup, screen, waitForElement } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+afterEach(cleanup);
+
+it('App renders the Skeleton and then the Data Grid', async () => {
+  const { getByTestId } = render(<App />);
+  expect(getByTestId('loading-skeleton')).toBeInTheDocument();
+
+  const firstRecord = await waitForElement(() => getByTestId('app'));
+  expect(getByTestId('record-0')).not.toBeEmpty();
 });
